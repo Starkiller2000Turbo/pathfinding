@@ -12,7 +12,7 @@ DIRECTIONS = [Vector(0, 1), Vector(1, 0), Vector(0, -1), Vector(-1, 0)]
 class MapPoint:
     """Обработчик точки в карте."""
 
-    def __init__(self, passable: bool, distanse: Optional[int] = None, passed: bool = False):
+    def __init__(self, passable: bool, distanse: Optional[int] = None):
         """Инициализировать обработчик точки в карте.
 
         Args:
@@ -21,12 +21,10 @@ class MapPoint:
         """
         self.distance = distanse
         self.passable = passable
-        self.passed = passed
 
     def clear(self) -> None:
         """Очистить ячейку таблицы."""
         self.distance = None
-        self.passed = False
 
 
 class Map:

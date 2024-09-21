@@ -216,6 +216,29 @@ class Graphic(Generic[MapType]):
             self.y_input.set_val(self.map.height)
             raise ex
 
+    def plot_map(self) -> None:
+        """Вывести карту."""
+        self.map.generate_map()
+        self.ax.cla()
+        self.error_text = self.ax.text(
+            0.5,
+            -0.05,
+            '',
+            transform=self.ax.transAxes,
+            style='italic',
+            horizontalalignment='center',
+            verticalalignment='top',
+            bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10},
+        )
+        self.data = self.ax.imshow(
+            [[0 if cell.passable else 1 for cell in row] for row in self.map.data.data],
+            cmap=plt.cm.binary,  # type: ignore[attr-defined]
+            interpolation='none',
+        )
+        self.ax.set_xticks([])
+        self.ax.set_yticks([])
+        plt.show()
+
     @handle_error('Не удалось изменить карту')
     def map_change(self, event: Event) -> None:
         """Обработка нажатия на кнопку "Изменить карту".
@@ -224,14 +247,7 @@ class Graphic(Generic[MapType]):
             event: событие клика.
         """
         self.click_clear(event)
-        self.map.generate_map()
-        self.data.remove()
-        self.data = self.ax.imshow(
-            [[0 if cell.passable else 1 for cell in row] for row in self.map.data.data],
-            cmap=plt.cm.binary,  # type: ignore[attr-defined]
-            interpolation='none',
-        )
-        plt.show()
+        self.plot_map()
 
     @handle_error('Не удалось обнаружить путь')
     def find_path(self, event: Event) -> None:
@@ -240,6 +256,7 @@ class Graphic(Generic[MapType]):
         Args:
             event: событие клика.
         """
+        self.delete_path()
         path = self.map.find_path()
         self.path = self.ax.plot([point.x for point in path], [point.y for point in path])
         plt.show()
@@ -293,28 +310,7 @@ class Graphic(Generic[MapType]):
         self.find_path_button.on_clicked(self.find_path)
 
         # Текстовое поле с ошибкой
-        self.error_text = self.ax.text(
-            0.5,
-            -0.05,
-            '',
-            transform=self.ax.transAxes,
-            style='italic',
-            horizontalalignment='center',
-            verticalalignment='top',
-            bbox={'facecolor': 'red', 'alpha': 0.5, 'pad': 10},
-        )
-
-        self.map.generate_map()
-        self.data = self.ax.imshow(
-            [[0 if cell.passable else 1 for cell in row] for row in self.map.data.data],
-            cmap=plt.cm.binary,
-            interpolation='none',
-        )
-
-        self.ax.set_xticks([])
-        self.ax.set_yticks([])
-
-        plt.show()
+        self.plot_map()
 
     def perform_exception(self, exception: Exception) -> None:
         """Выполнить в случае вызова исключения.

@@ -1,4 +1,4 @@
-"""Ошибки для остановки процесса."""
+"""Ошибки при работе с интерфейсом и классами обработчиков."""
 
 
 class WrongArgumentValuesError(Exception):
@@ -20,6 +20,6 @@ class WrongActionError(Exception):
 
 
 class CalculationFailedError(Exception):
-    """Неудалось рассчитать."""
+    """Не удалось рассчитать."""
 
     pass

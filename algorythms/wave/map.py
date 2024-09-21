@@ -16,6 +16,7 @@ class WaveMap(Map):
         Returns:
             Список точек.
         """
+        self.clear()
         if not hasattr(self, 'data'):
             raise DataNotProvidedError('Не задано поле')
         if not self.start_point:
@@ -35,11 +36,10 @@ class WaveMap(Map):
                     new_point = point + direction
                     if (
                         self.data[new_point].passable
-                        and not self.data[new_point].passed
+                        and self.data[new_point].distance is None
                         and new_point not in new_points
                     ):
                         new_points.append(new_point)
-                self.data[point].passed = True
             points = new_points
             distance += 1
         if not path_found:
