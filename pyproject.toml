@@ -1,0 +1,11 @@
+[tool.flake8]
+exclude=['tests/', 'venv/']
+max-line-length=120
+
+[tool.isort]
+line_length=120
+profile='black'
+
+[tool.black]
+line_length=120
+skip_string_normalization=1
