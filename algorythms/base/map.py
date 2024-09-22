@@ -187,6 +187,7 @@ class Map:
 
     def clear(self) -> None:
         """Очистить данные всех точек."""
-        for row in self.data:
-            for cell in row:
-                cell.clear()
+        if hasattr(self, 'data'):
+            for row in self.data:
+                for cell in row:
+                    cell.clear()
