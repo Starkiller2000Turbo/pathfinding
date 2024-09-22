@@ -41,7 +41,12 @@ make req
 
 Запустить волновой алгоритм:
 ```commandline
-make wave
+make run_wave
+```
+
+Запустить алгоритм A*:
+```commandline
+make run_astar
 ```
 
 ### Проверка стиля кода

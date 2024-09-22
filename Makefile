@@ -9,6 +9,9 @@ style:
 run_wave:
 	python wave_main.py
 
+run_astar:
+	python astar_main.py
+
 req:
 	pip install -r requirements.txt
 
